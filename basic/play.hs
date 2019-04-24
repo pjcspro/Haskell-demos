@@ -27,7 +27,7 @@ hiragana "su" = "す"
 hiragana "fu" = "ふ"
 
 hiragana (a:b:[]) = [a,b]
-hiragana (' ':a:b:rest) = (hiragana [a,b]) ++ " " ++ (hiragana rest)
+hiragana (' ':a:b:rest) = " " ++ (hiragana [a,b]) ++ (hiragana rest)
 hiragana (a:b:rest) = (hiragana [a,b]) ++ (hiragana rest)
 hiragana _ = ""
 
@@ -46,7 +46,7 @@ katakana syllable = case syllable of
     (a:b:[]) -> [a,b]
     (a:[]) -> ""
     [] -> ""
-    (' ':a:b:rest) -> (katakana [a,b]) ++ " " ++ (katakana rest)
+    (' ':a:b:rest) -> " " ++ (katakana [a,b]) ++ (katakana rest)
     (a:b:rest) -> (katakana [a,b]) ++ (katakana rest)
 
 
