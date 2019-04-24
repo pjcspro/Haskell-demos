@@ -59,8 +59,9 @@ convert (Message text Romaji) to = case to of
 convert (Message text _) _ = Message "TODO: To be done" Romaji
 
 -- 
-m1 = Message { text = "hiragana katakana", script = Romaji  } 
-m2 = Message "hiragana katakana" Romaji 
+message1 = Message { text = "hiragana katakana", script = Romaji  } 
+message2 = Message "hiragana katakana" Romaji 
 
 --
-run = convert m2 Katakana
+
+run romajiText toScript = putStrLn (text (convert (Message romajiText Romaji) toScript))
