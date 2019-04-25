@@ -12,7 +12,7 @@ data Message = Message {
     script  :: Script
 } deriving (Show)
 
-data Script = Hiragana | Katakana | Romaji deriving (Eq, Show)
+data Script = Hiragana | Katakana | Kanji | Romaji deriving (Eq, Show)
 
 -- Case Format 1
 hiragana :: String -> String
@@ -49,19 +49,19 @@ katakana syllable = case syllable of
     (' ':a:b:rest) -> " " ++ (katakana [a,b]) ++ (katakana rest)
     (a:b:rest) -> (katakana [a,b]) ++ (katakana rest)
 
-
 -- Action: Convert Message
 convert :: Message -> Script -> Message
 convert (Message text Romaji) to = case to of 
     Hiragana -> Message { text = (hiragana text), script = Hiragana  }
     Katakana -> Message { text = (katakana text), script = Katakana  }
+    Kanji    -> Message { text = ((\t -> case t of { "dog" -> "犬"; "person" -> "人"; _ -> "dunno" }  ) text), script = Kanji }      --Lambda expression & inline case
+
 
 convert (Message text _) _ = Message "TODO: To be done" Romaji
 
 -- 
 message1 = Message { text = "hiragana katakana", script = Romaji  } 
 message2 = Message "hiragana katakana" Romaji 
-
 --
 
 run romajiText toScript = putStrLn (text (convert (Message romajiText Romaji) toScript))
